@@ -1,7 +1,8 @@
 # BattleRoyalHD
-![Java](https://img.shields.io/badge/Java-17-blue)
+![Java](https://img.shields.io/badge/Java-21-blue)
 ![Paper](https://img.shields.io/badge/Paper-1.21.11-green)
-Paper plugin for battle royal fights. Developed for 1.21.11 Paper, other versions aren‘t officialy supported but may work
+![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+<br>
 
 The plugin allows you to manage the Battle Royal world.
 
