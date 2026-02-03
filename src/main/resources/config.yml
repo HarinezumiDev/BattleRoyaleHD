@@ -1,0 +1,26 @@
+##################################
+# BATTLE ROYALE HD PLUGIN CONFIG #
+##################################
+
+### phase settings ###
+mining_border_diameter: 1000
+mining_phase_time: 10
+fight_border_diameter: 100
+fight_phase_time: 15
+overtime_border_diameter: 20
+overtime_phase_time: 5
+
+### spawn default settings ###
+spawn_x: 0.0
+spawn_y: 100.0
+spawn_z: 0.0
+spawn_world: world
+
+### bossbar settings ###
+bossbar_enable: true
+phase_color_mining: BLUE
+phase_color_fight: RED
+phase_color_overtime: PURPLE
+
+# how long players are invisible after game start
+invisibility_time: 3

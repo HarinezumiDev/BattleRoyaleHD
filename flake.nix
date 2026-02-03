@@ -40,7 +40,7 @@
 
           shellHook = ''
             # Set Java home
-            export JAVA_HOME=${pkgs.jdk8}
+            export JAVA_HOME=${pkgs.jdk21}
             export PATH=$JAVA_HOME/bin:$PATH
 
             # Gradle settings

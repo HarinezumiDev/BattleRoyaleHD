@@ -1,7 +1,18 @@
 name: BattleRoyaleHD
-version: '1.0-WIP'
+version: '1.0-release'
 main: com.harinezumi_dev.battleRoyaleHD.BattleRoyaleHD
 api-version: '1.21'
 authors: [ Harinezumi Dev ]
-description: The modification increases the potential for explosions
+description: Battle Royale game mode plugin for Paper
 website: https://discord.gg/DTMswB8tRb
+
+commands:
+  br:
+    description: Battle Royale main command
+    usage: /br <setspawn|start|stop|reload>
+    permission: battleroyale.admin
+
+permissions:
+  battleroyale.admin:
+    description: Allows use of all Battle Royale admin commands
+    default: op

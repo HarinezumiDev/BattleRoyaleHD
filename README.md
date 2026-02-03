@@ -29,10 +29,13 @@ Battle Royale includes 3 Phases:
 - You cannot respawn
 
 ## Commands
-`/br_settings <mining_border_diameter> <mining_phase_time_in_m> <fight_border_diameter> <fight_phase_time_in_m> <overtime_border_diameter> <overtime_phase_time_in_m>` - set settings for Battle Royal<br><br>
-`/br_setspawn` - set the center of the border and spawnpoint<br><br>
-`/br_start <time_in_s_before_start>` - start Battle Royal in <$arg1> seconds<br><br>
 
+`/br setspawn` - set the center of the border and spawnpoint<br> <br>
+`/br start <time_in_s_before_start>` - start Battle Royal in <$arg1> seconds<br>
+Example: `/br start 3` - starts game in 3 seconds  <br>
+`/br stop` - instantly stop the game
+
+`/br reload` - reload plugin configuration
 ## FAQ
 ### What is Battle Royale?
 -> Players fight each other with resources they got during _mining phase_. The last player alive wins. The world has a border which changes diameter by the time
