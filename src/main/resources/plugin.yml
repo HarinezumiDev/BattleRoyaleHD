@@ -1,0 +1,7 @@
+name: BattleRoyaleHD
+version: '1.0-WIP'
+main: com.harinezumi_dev.battleRoyaleHD.BattleRoyaleHD
+api-version: '1.21'
+authors: [ Harinezumi Dev ]
+description: The modification increases the potential for explosions
+website: https://discord.gg/DTMswB8tRb
