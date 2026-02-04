@@ -24,9 +24,9 @@ public class BRTabCompleter implements TabCompleter {
                 }
             }
         } else if (args.length == 2 && args[0].equalsIgnoreCase("start")) {
+            completions.add("3");
+            completions.add("5");
             completions.add("10");
-            completions.add("30");
-            completions.add("60");
         }
 
         return completions;

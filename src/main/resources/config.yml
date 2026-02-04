@@ -3,8 +3,8 @@
 ##################################
 
 ### phase settings ###
-mining_border_diameter: 1000
-mining_phase_time: 10
+mining_border_diameter: 500
+mining_phase_time: 30
 fight_border_diameter: 100
 fight_phase_time: 15
 overtime_border_diameter: 20
@@ -23,4 +23,9 @@ phase_color_fight: RED
 phase_color_overtime: PURPLE
 
 # how long players are invisible after game start
-invisibility_time: 3
+invisibility_time: 5
+
+### quick death settings ###
+# what happens when overtime ends with multiple survivors
+# options: lava, arrows, damage_dealt, box, hunger, random, none
+quick_death: random

@@ -16,13 +16,15 @@ public class GameSettings {
     private BarColor phaseColorFight;
     private BarColor phaseColorOvertime;
     private int invisibilityTime;
+    private QuickDeathType quickDeathType;
 
     public GameSettings(int miningBorderDiameter, int miningPhaseTime,
                         int fightBorderDiameter, int fightPhaseTime,
                         int overtimeBorderDiameter, int overtimePhaseTime,
                         Location spawnLocation, boolean bossbarEnable,
                         BarColor phaseColorMining, BarColor phaseColorFight,
-                        BarColor phaseColorOvertime, int invisibilityTime) {
+                        BarColor phaseColorOvertime, int invisibilityTime,
+                        QuickDeathType quickDeathType) {
         this.miningBorderDiameter = miningBorderDiameter;
         this.miningPhaseTime = miningPhaseTime;
         this.fightBorderDiameter = fightBorderDiameter;
@@ -35,6 +37,7 @@ public class GameSettings {
         this.phaseColorFight = phaseColorFight;
         this.phaseColorOvertime = phaseColorOvertime;
         this.invisibilityTime = invisibilityTime;
+        this.quickDeathType = quickDeathType;
     }
 
     public int getMiningBorderDiameter() {
@@ -87,5 +90,9 @@ public class GameSettings {
 
     public int getInvisibilityTime() {
         return invisibilityTime;
+    }
+
+    public QuickDeathType getQuickDeathType() {
+        return quickDeathType;
     }
 }

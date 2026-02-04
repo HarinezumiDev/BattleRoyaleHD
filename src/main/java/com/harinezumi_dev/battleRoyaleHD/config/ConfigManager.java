@@ -2,6 +2,7 @@ package com.harinezumi_dev.battleRoyaleHD.config;
 
 import com.harinezumi_dev.battleRoyaleHD.BattleRoyaleHD;
 import com.harinezumi_dev.battleRoyaleHD.game.GameSettings;
+import com.harinezumi_dev.battleRoyaleHD.game.QuickDeathType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
@@ -38,6 +39,7 @@ public class ConfigManager {
         BarColor phaseColorFight = parseBarColor(config.getString("phase_color_fight", "RED"));
         BarColor phaseColorOvertime = parseBarColor(config.getString("phase_color_overtime", "PURPLE"));
         int invisibilityTime = config.getInt("invisibility_time", 3);
+        QuickDeathType quickDeathType = parseQuickDeathType(config.getString("quick_death", "random"));
 
         Location spawnLocation = new Location(
             Bukkit.getWorld(worldName),
@@ -50,7 +52,7 @@ public class ConfigManager {
             overtimeBorderDiameter, overtimePhaseTime,
             spawnLocation, bossbarEnable,
             phaseColorMining, phaseColorFight, phaseColorOvertime,
-            invisibilityTime
+            invisibilityTime, quickDeathType
         );
     }
 
@@ -76,6 +78,14 @@ public class ConfigManager {
             return BarColor.valueOf(color.toUpperCase());
         } catch (IllegalArgumentException e) {
             return BarColor.WHITE;
+        }
+    }
+
+    private QuickDeathType parseQuickDeathType(String type) {
+        try {
+            return QuickDeathType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return QuickDeathType.RANDOM;
         }
     }
 }

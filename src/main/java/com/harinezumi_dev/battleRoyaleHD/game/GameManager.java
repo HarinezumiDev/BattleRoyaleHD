@@ -24,6 +24,7 @@ public class GameManager {
     private GamePhase currentPhase;
     private Set<Player> alivePlayers;
     private BossBarManager bossBarManager;
+    private QuickDeathManager quickDeathManager;
     private BukkitTask phaseTask;
     private BukkitTask bossBarTask;
     private long phaseStartTime;
@@ -36,12 +37,14 @@ public class GameManager {
         this.currentPhase = GamePhase.WAITING;
         this.alivePlayers = new HashSet<>();
         this.bossBarManager = new BossBarManager(settings);
+        this.quickDeathManager = new QuickDeathManager(plugin, this);
         this.frozenPlayers = new HashMap<>();
     }
 
     public void updateSettings(GameSettings settings) {
         this.settings = settings;
         this.bossBarManager = new BossBarManager(settings);
+        this.quickDeathManager = new QuickDeathManager(plugin, this);
     }
 
     public GameSettings getSettings() {
@@ -73,12 +76,13 @@ public class GameManager {
         currentPhase = GamePhase.COUNTDOWN;
         alivePlayers.clear();
         frozenPlayers.clear();
+        quickDeathManager.resetDamage();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             alivePlayers.add(player);
             player.teleport(spawn);
             player.setGameMode(GameMode.ADVENTURE);
-            player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getValue());
+            player.setHealth(20.0);
             player.setFoodLevel(20);
             player.setSaturation(20);
             frozenPlayers.put(player, spawn);
@@ -163,7 +167,8 @@ public class GameManager {
         World world = spawn.getWorld();
 
         WorldBorder border = world.getWorldBorder();
-        border.setSize(settings.getFightBorderDiameter(), settings.getFightPhaseTime() * 60L);
+        long transitionSeconds = settings.getFightPhaseTime() * 60L;
+        border.setSize(settings.getFightBorderDiameter(), transitionSeconds);
 
         Bukkit.broadcastMessage("§c=== Fight Phase Started ===");
         Bukkit.broadcastMessage("§cPvP is now enabled! Border is shrinking!");
@@ -192,7 +197,8 @@ public class GameManager {
         World world = spawn.getWorld();
 
         WorldBorder border = world.getWorldBorder();
-        border.setSize(settings.getOvertimeBorderDiameter(), settings.getOvertimePhaseTime() * 60L);
+        long transitionSeconds = settings.getOvertimePhaseTime() * 60L;
+        border.setSize(settings.getOvertimeBorderDiameter(), transitionSeconds);
 
         Bukkit.broadcastMessage("§4=== OVERTIME ===");
         Bukkit.broadcastMessage("§4Border shrinking to critical size!");
@@ -205,7 +211,15 @@ public class GameManager {
         phaseTask = new BukkitRunnable() {
             @Override
             public void run() {
-                endGame();
+                if (alivePlayers.size() > 1) {
+                    quickDeathManager.startQuickDeath(
+                        settings.getQuickDeathType(),
+                        spawn,
+                        settings.getOvertimeBorderDiameter()
+                    );
+                } else {
+                    endGame();
+                }
             }
         }.runTaskLater(plugin, settings.getOvertimePhaseTime() * 60L * 20L);
     }
@@ -250,6 +264,7 @@ public class GameManager {
             bossBarTask.cancel();
         }
 
+        quickDeathManager.stop();
         bossBarManager.removeBossBar();
     }
 
@@ -319,5 +334,9 @@ public class GameManager {
 
     public void removePlayerFromBossBar(Player player) {
         bossBarManager.removePlayer(player);
+    }
+
+    public QuickDeathManager getQuickDeathManager() {
+        return quickDeathManager;
     }
 }

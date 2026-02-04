@@ -49,6 +49,9 @@ public class GameListener implements Listener {
 
         if (phase == GamePhase.MINING || phase == GamePhase.WAITING || phase == GamePhase.COUNTDOWN) {
             event.setCancelled(true);
+        } else if (phase == GamePhase.FIGHT || phase == GamePhase.OVERTIME) {
+            Player attacker = (Player) event.getDamager();
+            gameManager.getQuickDeathManager().recordDamage(attacker, event.getFinalDamage());
         }
     }
 
