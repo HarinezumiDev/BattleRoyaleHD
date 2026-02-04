@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.harinezumi_dev'
-version = '1.0-WIP'
+version = '1.0-release'
 
 repositories {
     mavenCentral()

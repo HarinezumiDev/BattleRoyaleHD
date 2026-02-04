@@ -25,7 +25,7 @@
             jdk21
 
             # Build Tools
-            gradle_7
+            gradle_8
 
             # Graphics libraries for Minecraft
             libGL
@@ -44,7 +44,7 @@
             export PATH=$JAVA_HOME/bin:$PATH
 
             # Gradle settings
-            export GRADLE_HOME=${pkgs.gradle_7}
+            export GRADLE_HOME=${pkgs.gradle_8}
             export PATH=$GRADLE_HOME/bin:$PATH
 
             # X11 and Graphics settings
