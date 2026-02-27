@@ -29,3 +29,5 @@ invisibility_time: 5
 # what happens when overtime ends with multiple survivors
 # options: lava, arrows, damage_dealt, box, hunger, random, none
 quick_death: random
+
+# kit settings can be changed only due in-game command. try /kit or /br:kit (if it conflicts with another plugin)
