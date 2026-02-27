@@ -285,7 +285,7 @@ public class QuickDeathManager {
             player.addPotionEffect(new PotionEffect(
                 PotionEffectType.HUNGER,
                 Integer.MAX_VALUE,
-                30,
+                40,
                 false,
                 false,
                 false

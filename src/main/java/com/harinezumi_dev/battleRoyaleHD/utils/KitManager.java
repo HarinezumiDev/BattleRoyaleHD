@@ -1,10 +1,9 @@
-package com.harinezumi_dev.duelshd.utils;
+package com.harinezumi_dev.battleRoyaleHD.utils;
 
 import com.harinezumi_dev.battleRoyaleHD.BattleRoyaleHD;
 import com.harinezumi_dev.battleRoyaleHD.models.Kit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-//import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import java.io.*;
@@ -14,8 +13,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class KitManager {
     private final BattleRoyaleHD plugin;
     private final PersistenceService persistence;
+    private final Map<String, Kit> publicKits;
+    private final Map<UUID, Map<String, Kit>> privateKits;
 
-    public KitManager(DuelsHD plugin, PersistenceService persistence) {
+    public KitManager(BattleRoyaleHD plugin, PersistenceService persistence) {
         this.plugin = plugin;
         this.persistence = persistence;
         this.publicKits = new ConcurrentHashMap<>();
@@ -30,14 +31,41 @@ public class KitManager {
         ItemStack[] contents = player.getInventory().getContents();
         ItemStack[] armor = player.getInventory().getArmorContents();
         ItemStack offhand = player.getInventory().getItemInOffHand();
-        List<PotionEffect> effects = new ArrayList<>(player.getActivePotionEffects());
 
         Kit kit = new Kit(name, Kit.KitType.PUBLIC, player.getUniqueId(),
-            contents, armor, offhand, effects);
+            contents, armor, offhand);
         publicKits.put(name, kit);
 
         saveKitToDatabase(kit);
     }
+    
+    public void updatePublicKit(String name, Player player) {
+        Kit oldKit = publicKits.get(name);
+        if (oldKit == null) return;
+
+        ItemStack[] contents = player.getInventory().getContents();
+        ItemStack[] armor = player.getInventory().getArmorContents();
+        ItemStack offhand = player.getInventory().getItemInOffHand();
+
+        Kit kit = new Kit(name, Kit.KitType.PUBLIC, oldKit.getOwner(),
+            contents, armor, offhand);
+        
+        publicKits.put(name, kit);
+        saveKitToDatabase(kit);
+    }
+    
+    public Kit getKit(String name) {
+        return publicKits.get(name);
+    }
+
+    public Collection<Kit> getPublicKits() {
+        return publicKits.values();
+    }
+
+    public boolean publicKitExists(String name) {
+        return publicKits.containsKey(name);
+    }
+
     public void saveKitSettings(Kit kit) {
         saveKitToDatabase(kit);
     }
@@ -58,11 +86,7 @@ public class KitManager {
         out.writeObject(kit.getContents());
         out.writeObject(kit.getArmor());
         out.writeObject(kit.getOffhand());
-        out.writeObject(new ArrayList<>(kit.getEffects()));
         out.writeUTF(kit.getType().name());
-        out.writeUTF(kit.getGameMode().name());
-        out.writeBoolean(kit.isShowHp());
-        out.writeInt(kit.getRounds());
 
         out.close();
         return Base64.getEncoder().encodeToString(byteOut.toByteArray());
@@ -79,5 +103,24 @@ public class KitManager {
             }
         });
     }
+    
+    private Kit deserializeKit(String name, UUID owner, String data) {
+        try {
+            byte[] bytes = Base64.getDecoder().decode(data);
+            ByteArrayInputStream byteIn = new ByteArrayInputStream(bytes);
+            BukkitObjectInputStream in = new BukkitObjectInputStream(byteIn);
 
+            ItemStack[] contents = (ItemStack[]) in.readObject();
+            ItemStack[] armor = (ItemStack[]) in.readObject();
+            ItemStack offhand = (ItemStack) in.readObject();
+            Kit.KitType type = Kit.KitType.valueOf(in.readUTF());
+
+            in.close();
+
+            return new Kit(name, type, owner, contents, armor, offhand);
+        } catch (Exception e) {
+            plugin.getLogger().warning("Failed to deserialize kit: " + e.getMessage());
+            return null;
+        }
+    }
 }

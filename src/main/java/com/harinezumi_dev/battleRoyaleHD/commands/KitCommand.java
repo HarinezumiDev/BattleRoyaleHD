@@ -3,7 +3,6 @@ package com.harinezumi_dev.battleRoyaleHD.commands;
 import com.harinezumi_dev.battleRoyaleHD.models.Kit;
 import com.harinezumi_dev.battleRoyaleHD.utils.KitManager;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,8 +16,9 @@ import java.util.stream.Collectors;
 
 public class KitCommand implements TabExecutor {
     private final KitManager kitManager;
+    private final Map<UUID, KitEditSession> editSessions;
 
-    public KitCommand(Kitmanager kitManager) {
+    public KitCommand(KitManager kitManager) {
         this.kitManager = kitManager;
         this.editSessions = new HashMap<>();
     }
@@ -217,8 +217,7 @@ public class KitCommand implements TabExecutor {
 
         player.sendMessage("§6Available kits:");
         for (Kit kit : kits) {
-            player.sendMessage("§e- " + kit.getName() + " §7(GameMode: " + kit.getGameMode() +
-                ", Rounds: " + kit.getRounds() + ", Show HP: " + kit.isShowHp() + ")");
+            player.sendMessage("§e- " + kit.getName());
         }
 
         return true;
@@ -255,5 +254,4 @@ public class KitCommand implements TabExecutor {
             this.kitName = kitName;
         }
     }
-
 }
