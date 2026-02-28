@@ -35,13 +35,13 @@ Battle Royale includes 3 Phases:
 ## Quick Death in Overtime
 **Types:**
 - lava
-- arrows
-- damage_dealt
-- box
-- hunger
+- arrows -> arrows are falling from the sky
+- damage_dealt -> the player who dealt the most damage wins
+- box -> players are closed in obsidian box and need to fight
+- hunger -> infinite hunger effect
 - random
 - none -> nothing special. fight until only one players stays alive
-_More datails about every event will be added later_
+_More details about every event will be added later_
 
 
 ## Commands
@@ -59,9 +59,12 @@ Example: `/br start 3` - starts game in 3 seconds
 
 `/br reload` - reload plugin configuration
 
+`/kit <create|edit|confirm|cancel|remove|preview>`
 
 ## FAQ
 ### What is Battle Royale?
 -> Players fight each other with resources they collect during _mining phase_. The last player alive wins. The world has a border that shrinks over time
 ### Which Minecraft versions are supported?
 -> Officially support only for 1.21.11 at the moment. The stability on other versions is not guaranteed but it may work on 1.21.X at least
+### Does it works on Spigot/Bukkit?
+-> It may work and you can check it by doing a test game but it was generally built for Paper 
