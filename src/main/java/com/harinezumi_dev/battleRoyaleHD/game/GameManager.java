@@ -30,8 +30,9 @@ public class GameManager {
     private long phaseStartTime;
     private long phaseDuration;
     private Map<Player, Location> frozenPlayers;
+    private final com.harinezumi_dev.battleRoyaleHD.utils.KitManager kitManager;
 
-    public GameManager(BattleRoyaleHD plugin, GameSettings settings) {
+    public GameManager(BattleRoyaleHD plugin, GameSettings settings, com.harinezumi_dev.battleRoyaleHD.utils.KitManager kitManager) {
         this.plugin = plugin;
         this.settings = settings;
         this.currentPhase = GamePhase.WAITING;
@@ -39,6 +40,7 @@ public class GameManager {
         this.bossBarManager = new BossBarManager(settings);
         this.quickDeathManager = new QuickDeathManager(plugin, this);
         this.frozenPlayers = new HashMap<>();
+        this.kitManager = kitManager;
     }
 
     public void updateSettings(GameSettings settings) {
@@ -77,7 +79,7 @@ public class GameManager {
         alivePlayers.clear();
         frozenPlayers.clear();
         quickDeathManager.resetDamage();
-
+        
         for (Player player : Bukkit.getOnlinePlayers()) {
             alivePlayers.add(player);
             player.teleport(spawn);
@@ -108,7 +110,7 @@ public class GameManager {
                     } else {
                         Bukkit.broadcastMessage("§eBattle Royale starts in " + timeLeft + " seconds!");
                     }
-
+                    
                     timeLeft--;
                 }
             }.runTaskTimer(plugin, 0L, 20L);
@@ -127,11 +129,26 @@ public class GameManager {
         border.setSize(settings.getMiningBorderDiameter());
 
         frozenPlayers.clear();
-
+        
+        String kitName = settings.getKitName();
+        boolean shouldApplyKit = kitName != null && !kitName.equalsIgnoreCase("none");
+        com.harinezumi_dev.battleRoyaleHD.models.Kit kit = null;
+        
+        if (shouldApplyKit) {
+            kit = kitManager.getKit(kitName);
+            if (kit == null) {
+                Bukkit.broadcastMessage("§cWarning: Kit '" + kitName + "' not found!");
+            }
+        }
+        
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendTitle("§aGO!", "", 0, 20, 10);
             player.setGameMode(GameMode.SURVIVAL);
-
+            
+            if (kit != null) {
+                kit.applyTo(player);
+            }
+            
             if (settings.getInvisibilityTime() > 0) {
                 player.addPotionEffect(new PotionEffect(
                     PotionEffectType.INVISIBILITY,
@@ -255,22 +272,22 @@ public class GameManager {
         currentPhase = GamePhase.WAITING;
         alivePlayers.clear();
         frozenPlayers.clear();
-
+        
         if (phaseTask != null && !phaseTask.isCancelled()) {
             phaseTask.cancel();
         }
-
+        
         if (bossBarTask != null && !bossBarTask.isCancelled()) {
             bossBarTask.cancel();
         }
-
+        
         quickDeathManager.stop();
         bossBarManager.removeBossBar();
     }
 
     public void removePlayer(Player player) {
         alivePlayers.remove(player);
-
+        
         if (currentPhase == GamePhase.FIGHT || currentPhase == GamePhase.OVERTIME) {
             if (alivePlayers.size() == 1) {
                 endGame();

@@ -27,11 +27,11 @@ public final class BattleRoyaleHD extends JavaPlugin {
         configManager = new ConfigManager(this);
         GameSettings settings = configManager.loadSettings();
 
-        gameManager = new GameManager(this, settings);
-        
         persistenceService = new PersistenceService(this);
         kitManager = new KitManager(this, persistenceService);
         kitManager.loadKits();
+
+        gameManager = new GameManager(this, settings, kitManager);
 
         brCommand = new BRCommand(this, gameManager, configManager);
         kitCommand = new KitCommand(kitManager);
