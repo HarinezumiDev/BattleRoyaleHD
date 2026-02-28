@@ -1,5 +1,5 @@
 name: BattleRoyaleHD
-version: '1.0-release'
+version: '1.1-release'
 main: com.harinezumi_dev.battleRoyaleHD.BattleRoyaleHD
 api-version: '1.21'
 authors: [ Harinezumi Dev ]
@@ -11,6 +11,10 @@ commands:
     description: Battle Royale main command
     usage: /br <setspawn|start|stop|reload>
     permission: battleroyale.admin
+  kit:
+    description: Kit command
+    usage: /kit <create|edit|remove|list|preview|>
+    permission: battleroyale.kit
 
 permissions:
   battleroyale.admin:

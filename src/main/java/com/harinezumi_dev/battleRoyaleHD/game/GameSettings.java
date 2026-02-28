@@ -17,14 +17,15 @@ public class GameSettings {
     private BarColor phaseColorOvertime;
     private int invisibilityTime;
     private QuickDeathType quickDeathType;
+    private String kitName;
 
-    public GameSettings(int miningBorderDiameter, int miningPhaseTime,
-                        int fightBorderDiameter, int fightPhaseTime,
-                        int overtimeBorderDiameter, int overtimePhaseTime,
-                        Location spawnLocation, boolean bossbarEnable,
-                        BarColor phaseColorMining, BarColor phaseColorFight,
-                        BarColor phaseColorOvertime, int invisibilityTime,
-                        QuickDeathType quickDeathType) {
+    public GameSettings(int miningBorderDiameter, int miningPhaseTime, 
+    int fightBorderDiameter, int fightPhaseTime,
+    int overtimeBorderDiameter, int overtimePhaseTime,
+    Location spawnLocation, boolean bossbarEnable,
+    BarColor phaseColorMining, BarColor phaseColorFight,
+    BarColor phaseColorOvertime, int invisibilityTime,
+    QuickDeathType quickDeathType, String kitName) {
         this.miningBorderDiameter = miningBorderDiameter;
         this.miningPhaseTime = miningPhaseTime;
         this.fightBorderDiameter = fightBorderDiameter;
@@ -38,6 +39,7 @@ public class GameSettings {
         this.phaseColorOvertime = phaseColorOvertime;
         this.invisibilityTime = invisibilityTime;
         this.quickDeathType = quickDeathType;
+        this.kitName = kitName;
     }
 
     public int getMiningBorderDiameter() {
@@ -94,5 +96,9 @@ public class GameSettings {
 
     public QuickDeathType getQuickDeathType() {
         return quickDeathType;
+    }
+
+    public String getKitName() {
+        return kitName;
     }
 }

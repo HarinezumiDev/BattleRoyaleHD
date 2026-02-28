@@ -29,3 +29,16 @@ invisibility_time: 5
 # what happens when overtime ends with multiple survivors
 # options: lava, arrows, damage_dealt, box, hunger, random, none
 quick_death: random
+
+### kit ###
+# which kit shoud be used for the start of the battle
+# write the name of the kit you created in game with /kit create <kit_name>
+# kit settings can be changed only due in-game command. try /kit or /br:kit (if it conflicts with another plugin)
+# if none, nobody gets something
+kit: none
+# kits will be saved to plugins folder in kits.db
+
+
+#############################################################
+### REMEMBER TO RELOAD THE CONFIGURATION WITH /br reload! ###
+#############################################################

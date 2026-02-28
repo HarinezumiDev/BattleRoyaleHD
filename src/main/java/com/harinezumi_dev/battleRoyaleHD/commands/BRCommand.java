@@ -38,6 +38,10 @@ public class BRCommand implements CommandExecutor {
                 return handleStop(sender);
             case "reload":
                 return handleReload(sender);
+            /*case "kit":
+                return handleKitCommand(sender);
+            case "setkit":
+                return 0;*/
             default:
                 sendHelp(sender);
                 return true;
