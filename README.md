@@ -7,13 +7,14 @@
 The plugin allows you to manage the Battle Royale world.
 
 ## Instalation
-Download the Jar file from releases. Move it to your servers plugins folder (`server_dir_name/plugins/`). Start the server. After starting the server plugin should create a folder with the same name as plugins name. Enter the folder and change `config.yml` if you want to change settings of plugin. Text after '#' in configuration file will be ignored.
+Download the Jar file from releases. Move it to your servers plugins folder (`server_dir_name/plugins/`). Start the server. After starting the server plugin should create a folder with the same name as plugins name. Enter the folder and change `config.yml` if you want to change settings of plugin. Text after '#' in configuration file will be ignored. Don't forget to reload the plugin to apply changes by using `/br reload` or restarting server.
 
 ## Phases
 Battle Royale includes 3 Phases:
 - Mining Phase*
 - Fight Phase*
 - Overtime
+<br>_* - happens anyway_
 
 **Mining Phase:**
 - PvP is disabled
@@ -34,15 +35,13 @@ Battle Royale includes 3 Phases:
 
 ## Quick Death in Overtime
 **Types:**
-- lava
-- arrows -> arrows are falling from the sky
-- damage_dealt -> the player who dealt the most damage wins
-- box -> players are closed in obsidian box and need to fight
-- hunger -> infinite hunger effect
-- random
-- none -> nothing special. fight until only one players stays alive
-_More details about every event will be added later_
-
+- `lava` -> lava rises
+- `arrows` -> arrows are falling from the sky
+- `damage_dealt` -> the player who dealt the most damage wins
+- `box` -> players are closed in obsidian box and need to fight
+- `hunger` -> infinite hunger effect
+- `random`
+- `none` -> nothing happens. fight until only one player stays alive
 
 ## Commands
 
@@ -59,8 +58,14 @@ Example: `/br start 3` - starts game in 3 seconds
 
 `/br reload` - reload plugin configuration
 
-`/kit <create|edit|confirm|cancel|remove|preview>`
+`/kit <create|edit|confirm|cancel|remove|preview>` - manage start kit
 
+## Configuration
+Plugin can be configured due the `config.yml` file which includes all possible settings
+```yml
+
+```
+more info later
 ## FAQ
 ### What is Battle Royale?
 -> Players fight each other with resources they collect during _mining phase_. The last player alive wins. The world has a border that shrinks over time
