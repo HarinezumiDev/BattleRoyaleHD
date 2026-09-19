@@ -103,7 +103,7 @@ public class GameManager {
                     }
 
                     if (timeLeft <= 3) {
-                        String title = timeLeft == 3 ? "§e3" : timeLeft == 2 ? "§63" : "§c1";
+                        String title = timeLeft == 3 ? "§e3" : timeLeft == 2 ? "§62" : "§c1";
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             player.sendTitle(title, "", 0, 20, 5);
                         }
