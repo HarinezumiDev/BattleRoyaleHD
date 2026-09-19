@@ -1,5 +1,5 @@
 name: BattleRoyaleHD
-version: '1.1-release'
+version: 'v1.1.1'
 main: com.harinezumi_dev.battleRoyaleHD.BattleRoyaleHD
 api-version: '1.21'
 authors: [ Harinezumi Dev ]
